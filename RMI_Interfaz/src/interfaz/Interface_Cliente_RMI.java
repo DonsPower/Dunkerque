@@ -5,10 +5,13 @@
  */
 package interfaz;
 
+import java.rmi.RemoteException;
+
 /**
  *
  * @author Dons
  */
 public interface Interface_Cliente_RMI {
-    
+    public void enviarCordenada(String msg)throws RemoteException; //Envio de cordenada 
+    public String getPais()throws RemoteException; //Nombre del país atacante
 }
