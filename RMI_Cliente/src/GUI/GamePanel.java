@@ -31,14 +31,14 @@ public class GamePanel extends JPanel {
 
         // Spielbrett fuer den Gegner
         panelEnemyBoard = new BoardPanel();
-        panelEnemyBoard.initializeBoardPanel("", 10);
+        panelEnemyBoard.initializeBoardPanel("Jugador", 10);
         
         
         panelBoards.add(panelEnemyBoard);
 
         // Spielbrett fuer den Player
         panelPlayerBoard = new BoardPanel();
-        panelPlayerBoard.initializeBoardPanel("", 10);
+        panelPlayerBoard.initializeBoardPanel("Enemigo", 10);
         
         
         

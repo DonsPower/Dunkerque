@@ -57,11 +57,12 @@ public class BoardPanel extends JPanel {
             this.add(new JLabel(Integer.toString(y + 1), SwingConstants.CENTER));
             // Buttons hinzufuegen
             for (int x = 0; x < buttonsField[y].length; x++) {
-                buttonsField[y][x] = new FieldButton(x, y);
                 
-                final int yFinal = y; 
-                final int xFinal = x; 
-               
+                int j = title.equals("Jugador") ? 1 :2;
+                
+                buttonsField[y][x] = new FieldButton(x, y,j);
+                
+              
                 
                 this.add(buttonsField[y][x]);
             }
