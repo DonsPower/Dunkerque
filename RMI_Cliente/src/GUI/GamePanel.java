@@ -29,16 +29,32 @@ public class GamePanel extends JPanel {
         panelBoards = new JPanel(new GridLayout(1, 2));
 
 
-        // Spielbrett fuer den Gegner
+        
+        //Panel de los botones
+        JPanel jbotones = new JPanel(); 
+            jbotones.setLayout(new FlowLayout());
+        JButton terminarTurno = new JButton("Listo"); 
+        
+        terminarTurno.addActionListener((java.awt.event.ActionEvent evt) -> {System.out.println(BoardPanel.coordenadas[0]);}); //Aquí envia el string con las coordenadas 
+        
+        jbotones.add(terminarTurno); 
+        JButton Atacar = new JButton("Atacar");
+        Atacar.addActionListener((java.awt.event.ActionEvent evt) -> {System.out.println(BoardPanel.coordenadas[1]);});
+        
+        jbotones.add(Atacar); 
+        panelGameArea.add(jbotones, BorderLayout.SOUTH);
+
+        
+        // Panel del enemigo
         panelEnemyBoard = new BoardPanel();
-        panelEnemyBoard.initializeBoardPanel("Jugador", 10);
+        panelEnemyBoard.initializeBoardPanel("Jugador",3, 10);
         
         
         panelBoards.add(panelEnemyBoard);
 
-        // Spielbrett fuer den Player
+        // Panel del jugador
         panelPlayerBoard = new BoardPanel();
-        panelPlayerBoard.initializeBoardPanel("Enemigo", 10);
+        panelPlayerBoard.initializeBoardPanel("Enemigo",10, 10);
         
         
         

@@ -9,6 +9,9 @@ public class BoardPanel extends JPanel {
 
     private FieldButton[][] buttonsField;
     private String title;
+    public static int numeroCasillas[] = new int[2]; 
+    public static int numeroIntentos[] = new int[2]; 
+    public static String coordenadas[] = new String[2]; 
 
 // --------------------- GETTER / SETTER METHODS ---------------------
 
@@ -29,14 +32,24 @@ public class BoardPanel extends JPanel {
         return buttonsField[y][x];
     }
 
+    
 // -------------------------- OTHER METHODS --------------------------
 
     /**
      * Initialisiert ein neues Spielfeld
      */
-    public void initializeBoardPanel(String title, int boardSize) {
+    public void initializeBoardPanel(String title, int n, int boardSize) {
+        
+        
         this.title = title;
-
+        
+        coordenadas[0] = ""; 
+        coordenadas[1] = ""; 
+        
+        numeroCasillas[title.equals("Jugador") ? 0 :1] = n; 
+        
+        
+        
         // mit Nummerierung
         this.setBorder(BorderFactory.createTitledBorder(this.title));
         this.setLayout(new SquareGridLayout(boardSize + 1, boardSize + 1));

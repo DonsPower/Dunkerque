@@ -38,15 +38,17 @@ public class GUI extends BasicTabbedPaneUI {
     public GUI() {
         setDefaultLookAndFeel();
 
-        frame = new JFrame("Battleship-Extreme");
+        frame = new JFrame("DUNKERKE");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // frame.setResizable(false);
-        frame.setJMenuBar(createMenuBar());
-
+        
         initComponents();
-
+        
         frame.pack();
         // frame.setMinimumSize(new Dimension(1500, 640));
+        
+        
+        
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
