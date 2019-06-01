@@ -35,8 +35,12 @@ public class ClienteGUI extends javax.swing.JFrame {
     public static String coordenadaAtacada = ""; 
     
     public static String coordenadasJugador = ""; 
-    public static int NoBarcos = 5; 
+    public static int NoBarcos; 
     public static int shipsSetted = 0; 
+    
+    
+    public static int NoIntentos; 
+    public static int Intentados = 0; 
     
     
     
@@ -45,6 +49,9 @@ public class ClienteGUI extends javax.swing.JFrame {
      */
     public ClienteGUI() {
         initComponents();
+        
+        this.setSize(1072,772);
+        this.jTextField1.setVisible(false);
         cordenadas=new ArrayList<>();
         bomba=new ArrayList<>();
         jTextArea1.setEnabled(false);
@@ -52,9 +59,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         jButton3.setEnabled(false);
         t1.setText("127.0.0.1");
         
-        
-        iniciarPanelJugador(10); 
-       iniciarPanelEnemigo(10); 
+       
     }
 
     /**
@@ -77,17 +82,24 @@ public class ClienteGUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        ataque = new javax.swing.JTextField();
-        env = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        TamTablero = new javax.swing.JTextField();
+        NumBarcos = new javax.swing.JTextField();
+        NumIntentos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Escribe el usuario:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(275, 26, 103, 16);
 
         jLabel2.setText("IP servidor");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(485, 26, 58, 16);
 
         t1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +107,8 @@ public class ClienteGUI extends javax.swing.JFrame {
                 t1ActionPerformed(evt);
             }
         });
+        getContentPane().add(t1);
+        t1.setBounds(555, 19, 95, 30);
 
         t2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t2.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +116,8 @@ public class ClienteGUI extends javax.swing.JFrame {
                 t2ActionPerformed(evt);
             }
         });
+        getContentPane().add(t2);
+        t2.setBounds(384, 19, 95, 30);
 
         jButton1.setText("Conectar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -109,111 +125,60 @@ public class ClienteGUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(668, 20, 140, 28);
 
         jScrollPane1.setViewportView(jList1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(862, 568, 154, 143);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(547, 576, 218, 143);
+
         jLabel3.setText("Usuarios");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(915, 542, 51, 16);
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(80, 612, 0, 28);
 
-        jLabel4.setText("Cordenadas del barco");
-
-        jButton3.setText("Enviar");
+        jButton3.setText("Terminar Turno");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton3);
+        jButton3.setBounds(130, 570, 160, 28);
 
-        jLabel5.setText("Cordenas Para atacar");
+        jLabel6.setText("Tamaño de tablero:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(410, 120, 110, 16);
 
-        env.setText("ATACA!!");
-        env.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                envActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("Número de barcos:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(410, 160, 110, 16);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(ataque))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(env, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(97, 97, 97)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(368, 368, 368)
-                                .addComponent(jLabel3))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1)
-                    .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(ataque, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(env))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(10, 10, 10)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22))))
-        );
+        jLabel8.setText("Número de intentos: ");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(410, 200, 120, 16);
+
+        TamTablero.setText("10");
+        getContentPane().add(TamTablero);
+        TamTablero.setBounds(530, 110, 71, 28);
+
+        NumBarcos.setText("5");
+        getContentPane().add(NumBarcos);
+        NumBarcos.setBounds(530, 150, 71, 28);
+
+        NumIntentos.setText("10");
+        getContentPane().add(NumIntentos);
+        NumIntentos.setBounds(530, 190, 26, 28);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,6 +192,22 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_t2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        NoBarcos = Integer.parseInt(this.NumBarcos.getText()); 
+        NoIntentos = Integer.parseInt(this.NumIntentos.getText()); 
+        
+        this.jLabel6.setVisible(false);
+        this.jLabel7.setVisible(false);
+        this.jLabel8.setVisible(false);
+        
+        this.NumBarcos.setVisible(false);
+        this.NumIntentos.setVisible(false);
+        this.TamTablero.setVisible(false);
+        
+       iniciarPanelJugador(Integer.parseInt(this.TamTablero.getText())); 
+        
+       this.repaint();
+       
         if(jButton1.getText().equals("Conectar")){
             if(t2.getText().isEmpty()){ 
                 JOptionPane.showMessageDialog(null, "Debes de ingresar un nombre");
@@ -272,10 +253,17 @@ public class ClienteGUI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     
-                if(jButton1.getText().equals("Desconectar")){
+        
+        
+        
+       iniciarPanelEnemigo(Integer.parseInt(this.TamTablero.getText())); 
+            this.repaint();
+          if(jButton1.getText().equals("Desconectar")){
             if(!jTextField1.getText().isEmpty()){
                 try {    
-                    servidor.publicar(id,this.coordenadasJugador);
+                    
+                    System.out.println("Entro aqui");
+                    servidor.publicar(id,coordenadasJugador);
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -283,11 +271,6 @@ public class ClienteGUI extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void envActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envActionPerformed
-      
-      
-    }//GEN-LAST:event_envActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,15 +308,17 @@ public class ClienteGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTextField ataque;
-    public static javax.swing.JButton env;
+    public static javax.swing.JTextField NumBarcos;
+    public static javax.swing.JTextField NumIntentos;
+    public static javax.swing.JTextField TamTablero;
     public static javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -412,13 +397,19 @@ public class ClienteGUI extends javax.swing.JFrame {
         bomba.clear();
         jTextArea1.setText("");
          if(jButton1.getText().equals("Desconectar")){
-            if(!ataque.getText().isEmpty()){
+            
                 try {
+                    
+                    System.out.println(coordenadaAtacada);
+                    
                     servidor.ataque(id,coordenadaAtacada);
+                    
+                    
+                    
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            
         }
         
         

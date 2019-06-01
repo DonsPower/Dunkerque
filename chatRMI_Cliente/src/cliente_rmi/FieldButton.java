@@ -51,19 +51,24 @@ public class FieldButton extends JButton {
                 }
                 }else{ //Es el panel del tablero enemigo
                     
-                    
-                   /* 
-                    Random r = new Random(); 
-                    if(r.nextInt(2)+1 == 1 )this.setIcon(acierto);
-                    else this.setIcon(fallo);
-                  */
-                  
-                   
-                   ClienteGUI.coordenadaAtacada = this.xPos+ABC[this.yPos]; 
+                   if(ClienteGUI.Intentados<ClienteGUI.NoIntentos){
+                       
+                       
+                   ClienteGUI.coordenadaAtacada =  this.xPos+ABC[this.yPos]; 
                    ClienteGUI.Atacar(); 
                    
-                   
+                   if(ClienteGUI.jTextArea1.getText().contains("BOOM!"))
+                        this.setIcon(acierto);
+                   else
+                       this.setIcon(fallo);
                     
+                   ClienteGUI.Intentados++; 
+                       
+                       
+                   }else{
+                       
+                       
+                   }
                    
                 }
                 
