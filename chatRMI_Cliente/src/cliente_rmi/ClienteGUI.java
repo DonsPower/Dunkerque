@@ -12,10 +12,12 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,11 +25,21 @@ import javax.swing.JOptionPane;
  * @author Dons
  */
 public class ClienteGUI extends javax.swing.JFrame {
-    private InterfazServidor servidor;
+    public static InterfazServidor servidor;
     private Cliente cliente;
     private ArrayList<String> cordenadas;
-    private ArrayList<String> bomba;
-    private int id=0;
+    public static ArrayList<String> bomba;
+    public static int id=0;
+    
+    
+    public static String coordenadaAtacada = ""; 
+    
+    public static String coordenadasJugador = ""; 
+    public static int NoBarcos = 5; 
+    public static int shipsSetted = 0; 
+    
+    
+    
     /**
      * Creates new form ClienteGUI
      */
@@ -39,7 +51,10 @@ public class ClienteGUI extends javax.swing.JFrame {
         jTextField1.setEnabled(false);
         jButton3.setEnabled(false);
         t1.setText("127.0.0.1");
-       
+        
+        
+        iniciarPanelJugador(10); 
+       iniciarPanelEnemigo(10); 
     }
 
     /**
@@ -126,30 +141,10 @@ public class ClienteGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -160,40 +155,64 @@ public class ClienteGUI extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(env, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(env)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(97, 97, 97)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(368, 368, 368)
+                                .addComponent(jLabel3))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(275, 275, 275)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jLabel1)
                     .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(ataque, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(env))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(ataque, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(env))
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(22, 22, 22))))
         );
 
         pack();
@@ -253,10 +272,10 @@ public class ClienteGUI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     
-        if(jButton1.getText().equals("Desconectar")){
+                if(jButton1.getText().equals("Desconectar")){
             if(!jTextField1.getText().isEmpty()){
                 try {    
-                    servidor.publicar(id, jTextField1.getText());
+                    servidor.publicar(id,this.coordenadasJugador);
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -266,18 +285,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void envActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envActionPerformed
-        // Ataaaca meeen
-        bomba.clear();
-        jTextArea1.setText("");
-         if(jButton1.getText().equals("Desconectar")){
-            if(!ataque.getText().isEmpty()){
-                try {
-                    servidor.ataque(id, ataque.getText());
-                } catch (RemoteException ex) {
-                    Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+      
       
     }//GEN-LAST:event_envActionPerformed
 
@@ -317,9 +325,9 @@ public class ClienteGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ataque;
-    private javax.swing.JButton env;
-    private javax.swing.JButton jButton1;
+    public static javax.swing.JTextField ataque;
+    public static javax.swing.JButton env;
+    public static javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -329,8 +337,8 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextArea jTextArea1;
+    public static javax.swing.JTextField jTextField1;
     private javax.swing.JTextField t1;
     private javax.swing.JTextField t2;
     // End of variables declaration//GEN-END:variables
@@ -354,6 +362,66 @@ public class ClienteGUI extends javax.swing.JFrame {
     //Metodo actualizar el textArea poner la informacion del servidor.
     public void actualizarArea(String text){
         jTextArea1.setText(jTextArea1.getText()+"\n"+text);
+    }
+
+    private void iniciarPanelJugador(int tam) {
+        for (int x = 0; x < tam; x++) {
+            for (int y = 0; y < tam; y++) {
+                
+                
+                FieldButton b = new FieldButton(x,y,1); 
+                
+                b.setLocation(10+x*40+10,50+y*40+10); 
+                b.setSize(40,40); 
+                b.setVisible(true);
+                
+                
+                
+                
+                this.add(b); 
+                
+            }
+        }
+    }
+   
+    private void iniciarPanelEnemigo(int tam) {
+    
+    for (int x = 0; x < tam; x++) {
+            for (int y = 0; y < tam; y++) {
+                
+                
+                FieldButton b = new FieldButton(x,y,2); 
+                
+                b.setLocation(500+x*40+10,50+y*40+10); 
+                b.setSize(40,40); 
+                b.setVisible(true);
+                
+                
+                
+                
+                this.add(b); 
+                
+            }
+        }
+    
+    }
+    
+    
+    public static void Atacar(){
+          // Ataaaca meeen
+        bomba.clear();
+        jTextArea1.setText("");
+         if(jButton1.getText().equals("Desconectar")){
+            if(!ataque.getText().isEmpty()){
+                try {
+                    servidor.ataque(id,coordenadaAtacada);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        
     }
    
 }
