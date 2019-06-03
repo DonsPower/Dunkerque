@@ -37,7 +37,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     public static String coordenadasJugador = ""; 
     public static int NoBarcos; 
     public static int shipsSetted = 0; 
-    
+    public int barcosHundidos = 0; 
     
     public static int NoIntentos; 
     public static int Intentados = 0; 
@@ -49,7 +49,7 @@ public class ClienteGUI extends javax.swing.JFrame {
      */
     public ClienteGUI() {
         initComponents();
-        
+        this.setTitle("DUNKERKE");
         this.setSize(1072,772);
         this.jTextField1.setVisible(false);
         cordenadas=new ArrayList<>();
@@ -89,6 +89,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         TamTablero = new javax.swing.JTextField();
         NumBarcos = new javax.swing.JTextField();
         NumIntentos = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -131,7 +132,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(862, 568, 154, 143);
+        jScrollPane1.setBounds(520, 580, 154, 143);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -139,22 +140,22 @@ public class ClienteGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(547, 576, 218, 143);
+        jScrollPane2.setBounds(250, 580, 218, 143);
 
         jLabel3.setText("Usuarios");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(915, 542, 51, 16);
+        jLabel3.setBounds(540, 560, 51, 16);
         getContentPane().add(jTextField1);
         jTextField1.setBounds(80, 612, 0, 28);
 
-        jButton3.setText("Terminar Turno");
+        jButton3.setText("Guardar Coordenadas");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(130, 570, 160, 28);
+        jButton3.setBounds(130, 550, 160, 28);
 
         jLabel6.setText("Tamaño de tablero:");
         getContentPane().add(jLabel6);
@@ -179,6 +180,15 @@ public class ClienteGUI extends javax.swing.JFrame {
         NumIntentos.setText("10");
         getContentPane().add(NumIntentos);
         NumIntentos.setBounds(530, 190, 26, 28);
+
+        jButton2.setText("Terminar Turno");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(740, 550, 150, 28);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -262,7 +272,6 @@ public class ClienteGUI extends javax.swing.JFrame {
             if(!jTextField1.getText().isEmpty()){
                 try {    
                     
-                    System.out.println("Entro aqui");
                     servidor.publicar(id,coordenadasJugador);
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,6 +280,11 @@ public class ClienteGUI extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        System.out.println(barcosHundidos);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,6 +326,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     public static javax.swing.JTextField NumIntentos;
     public static javax.swing.JTextField TamTablero;
     public static javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

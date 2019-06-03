@@ -28,6 +28,9 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
 
     @Override
     public void enviarMsg(String msg) throws RemoteException {
+        
+        if(msg.equals("BOOM!")) this.gui.barcosHundidos++; 
+        
         gui.actualizarArea(msg);
     }
 
@@ -45,4 +48,12 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
         System.out.println(cont);
        return cont;
     }
+    
+    
+    public ClienteGUI getGUI() {
+        
+        return this.gui; 
+        
+    }
+    
 }

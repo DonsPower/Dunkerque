@@ -57,8 +57,11 @@ public class FieldButton extends JButton {
                    ClienteGUI.coordenadaAtacada =  this.xPos+ABC[this.yPos]; 
                    ClienteGUI.Atacar(); 
                    
-                   if(ClienteGUI.jTextArea1.getText().contains("BOOM!"))
+                   if(ClienteGUI.jTextArea1.getText().contains("BOOM!")){
                         this.setIcon(acierto);
+                        
+                   
+                   }
                    else
                        this.setIcon(fallo);
                     
