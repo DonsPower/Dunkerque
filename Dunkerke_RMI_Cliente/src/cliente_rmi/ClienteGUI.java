@@ -234,6 +234,11 @@ public class ClienteGUI extends javax.swing.JFrame {
                 servidor=(InterfazServidor)reg.lookup("Servidor");
                 this.id=servidor.verificar2(id);
                 System.out.println("clienrte: "+id);
+                if(id>2){
+                    JOptionPane.showMessageDialog(null, "Ya existen 2 clientes jugando en el juego", "Error", JOptionPane.WARNING_MESSAGE);
+                    
+                    this.dispose();
+                }
                 servidor.registrar(cliente);
                 actualizarLista(servidor.obtenerClientesActivos());
             }catch(RemoteException e){
