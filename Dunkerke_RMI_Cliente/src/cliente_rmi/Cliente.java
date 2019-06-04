@@ -29,7 +29,7 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
     @Override
     public void enviarMsg(String msg) throws RemoteException {
         
-        if(msg.equals("BOOM!")) this.gui.barcosHundidos++; 
+        if(msg.equals("BOOM!")) this.gui.tre=true; 
         
         gui.actualizarArea(msg);
     }

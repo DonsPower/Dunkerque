@@ -27,6 +27,8 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor{
     private ArrayList<String>cln2;
     private int cont=0;
     private int id;
+    private int numIntentos1=0;
+    private int numIntentos2=0;
     
     
     
@@ -141,6 +143,21 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor{
         
         System.out.println(cont);
        return cont;
+    }
+
+    @Override
+    public int intentos(int id, int num) throws RemoteException {
+        System.out.println("id"+id);
+        if(id==1){
+           numIntentos1++;
+           System.out.println("Cliente1: "+numIntentos1);
+           return numIntentos1;
+       }else if(id==2){
+           numIntentos2++;
+           System.out.println("Cliente2: "+numIntentos2);
+           return numIntentos2;
+       }
+       return 1;
     }
 
 }

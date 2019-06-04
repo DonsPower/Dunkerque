@@ -21,4 +21,5 @@ public interface InterfazServidor extends Remote{
     public void publicar(int aux, String arr)throws RemoteException;
     public void ataque(int id, String bomba)throws RemoteException;
     public Vector obtenerClientesActivos()throws RemoteException;
+    public int intentos(int id, int num)throws RemoteException;
 }

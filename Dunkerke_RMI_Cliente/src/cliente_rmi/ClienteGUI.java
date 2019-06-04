@@ -40,7 +40,9 @@ public class ClienteGUI extends javax.swing.JFrame {
     public int barcosHundidos = 0; 
     
     public static int NoIntentos; 
+    public int intentoschido=0;
     public static int Intentados = 0; 
+    public boolean tre=false;
     
     
     
@@ -49,7 +51,7 @@ public class ClienteGUI extends javax.swing.JFrame {
      */
     public ClienteGUI() {
         initComponents();
-        this.setTitle("DUNKERKE");
+        this.setTitle("DUNKERQUE");
         this.setSize(1072,772);
         this.jTextField1.setVisible(false);
         cordenadas=new ArrayList<>();
@@ -90,17 +92,19 @@ public class ClienteGUI extends javax.swing.JFrame {
         NumBarcos = new javax.swing.JTextField();
         NumIntentos = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        score = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jLabel1.setText("Escribe el usuario:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(275, 26, 103, 16);
+        jLabel1.setBounds(110, 30, 87, 14);
 
         jLabel2.setText("IP servidor");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(485, 26, 58, 16);
+        jLabel2.setBounds(340, 30, 52, 14);
 
         t1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t1.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +113,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t1);
-        t1.setBounds(555, 19, 95, 30);
+        t1.setBounds(400, 20, 95, 30);
 
         t2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t2.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +122,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t2);
-        t2.setBounds(384, 19, 95, 30);
+        t2.setBounds(210, 20, 95, 30);
 
         jButton1.setText("Conectar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +131,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(668, 20, 140, 28);
+        jButton1.setBounds(520, 30, 140, 23);
 
         jScrollPane1.setViewportView(jList1);
 
@@ -144,9 +148,9 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         jLabel3.setText("Usuarios");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(540, 560, 51, 16);
+        jLabel3.setBounds(540, 560, 41, 14);
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(80, 612, 0, 28);
+        jTextField1.setBounds(80, 612, 0, 20);
 
         jButton3.setText("Guardar Coordenadas");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -155,31 +159,31 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(130, 550, 160, 28);
+        jButton3.setBounds(130, 550, 160, 23);
 
         jLabel6.setText("Tamaño de tablero:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(410, 120, 110, 16);
+        jLabel6.setBounds(410, 120, 110, 14);
 
         jLabel7.setText("Número de barcos:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(410, 160, 110, 16);
+        jLabel7.setBounds(410, 160, 110, 14);
 
         jLabel8.setText("Número de intentos: ");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(410, 200, 120, 16);
+        jLabel8.setBounds(410, 200, 120, 14);
 
         TamTablero.setText("10");
         getContentPane().add(TamTablero);
-        TamTablero.setBounds(530, 110, 71, 28);
+        TamTablero.setBounds(530, 110, 90, 30);
 
         NumBarcos.setText("5");
         getContentPane().add(NumBarcos);
-        NumBarcos.setBounds(530, 150, 71, 28);
+        NumBarcos.setBounds(530, 150, 80, 30);
 
         NumIntentos.setText("10");
         getContentPane().add(NumIntentos);
-        NumIntentos.setBounds(530, 190, 26, 28);
+        NumIntentos.setBounds(530, 190, 30, 30);
 
         jButton2.setText("Terminar Turno");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +192,16 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(740, 550, 150, 28);
+        jButton2.setBounds(740, 550, 150, 23);
+
+        jLabel4.setText("Score");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(770, 30, 34, 14);
+
+        score.setEditable(false);
+        score.setText("0");
+        getContentPane().add(score);
+        score.setBounds(810, 20, 120, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -235,7 +248,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 this.id=servidor.verificar2(id);
                 System.out.println("clienrte: "+id);
                 if(id>2){
-                    JOptionPane.showMessageDialog(null, "Ya existen 2 clientes jugando en el juego", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No puede haber mas de 3 jugadores.", "Error", JOptionPane.WARNING_MESSAGE);
                     
                     this.dispose();
                 }
@@ -267,10 +280,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    
-        
-        
-        
+
        iniciarPanelEnemigo(Integer.parseInt(this.TamTablero.getText())); 
             this.repaint();
           if(jButton1.getText().equals("Desconectar")){
@@ -287,8 +297,26 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        System.out.println(barcosHundidos);
+        //Termina el turno 
+        //verifica si en el text Aree hay un boom.
+        System.out.println("no entro");
+        System.out.println("areauno: "+jTextArea1.getText());
+        if(tre){
+            try {
+                System.out.println("entro,");
+                intentoschido=servidor.intentos(this.id, 1);
+                
+            } catch (RemoteException ex) {
+                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        tre=false;
+        System.out.println("hpñ:  "+intentoschido);
+        score.setText(""+intentoschido);
+        if(intentoschido==5){
+            JOptionPane.showMessageDialog(null, "ganaste");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -336,6 +364,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -344,6 +373,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTextArea jTextArea1;
     public static javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField score;
     private javax.swing.JTextField t1;
     private javax.swing.JTextField t2;
     // End of variables declaration//GEN-END:variables
@@ -379,10 +409,6 @@ public class ClienteGUI extends javax.swing.JFrame {
                 b.setLocation(10+x*40+10,50+y*40+10); 
                 b.setSize(40,40); 
                 b.setVisible(true);
-                
-                
-                
-                
                 this.add(b); 
                 
             }
@@ -399,11 +425,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 
                 b.setLocation(500+x*40+10,50+y*40+10); 
                 b.setSize(40,40); 
-                b.setVisible(true);
-                
-                
-                
-                
+                b.setVisible(true); 
                 this.add(b); 
                 
             }
